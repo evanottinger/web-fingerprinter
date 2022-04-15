@@ -17,8 +17,7 @@ def get_digest(text: str) -> bytes:
 
 def main(url):
     source = get_website(url)
-    digest = get_digest(source)
-    print(digest)
+    return get_digest(source)
 
 
 if __name__ == "__main__":
