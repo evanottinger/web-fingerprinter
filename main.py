@@ -1,23 +1,22 @@
 #!/env/usr/bin python3
 
-from cryptography.hazmat.primitives import hashes
+import hashlib
 import requests
 import sys
 
 
-def get_website(url: str) -> str:
+def get_target(url: str) -> str:
     return requests.get(url).text
 
 
-def get_digest(text: str) -> bytes:
-    digest = hashes.Hash(hashes.SHA256())
-    digest.update(bytes(text, "utf-8"))
-    return digest.finalize()
+def get_digest(text: str) -> str:
+    return hashlib.md5(bytes(text, "utf-8")).hexdigest()
 
 
-def main(url):
-    source = get_website(url)
-    return get_digest(source)
+def main(target_url):
+    res_text = get_target(target_url)
+    digest = get_digest(res_text)
+    print(digest)
 
 
 if __name__ == "__main__":
